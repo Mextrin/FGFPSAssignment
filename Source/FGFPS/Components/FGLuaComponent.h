@@ -24,19 +24,40 @@ public:
 	void CallFunction_OneParamNumber(const FString& FunctionName, float Param1);
 
 	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
+	void CallFunction_OneParamString(const FString& FunctionName, const FString& Param1);
+
+	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
+	void CallFunction_TwoParamsNumber(const FString& FunctionName, float Param1, float Param2);
+
+	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
+	void CallFunction_TwoParamsStringNumber(const FString& FunctionName, const FString& Param1, float Param2);
+
+	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
+	void CallFunction_ThreeParamsStringNumber(const FString& FunctionName, const FString& Param1, const FString& Param2, float Param3);
+
+	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
+	void CallFunction_FourParamsStringNumber(const FString& FunctionName, const FString& Param1, const FString& Param2, float Param3, float Param4);
+
+	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
 	bool CallFunction_RetValueBool(const FString& FunctionName);
 
 	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
 	float CallFunction_RetValueNumber(const FString& FunctionName, float DefaultValue = 0.0f);
 
 	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
-	float GetNumber(const FString& Name) const;
+	FString CallFunction_RetValueString(const FString& FunctionName, const FString& DefaultValue = TEXT("None"));
+
+	UFUNCTION(BlueprintPure, Category = "FG|Lua")
+	float GetNumber(const FString& Name, float DefaultValue = 0.0f) const;
 
 	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
 	void SetNumber(float Number, const FString& Name);
 
-	UFUNCTION(BlueprintPure, Category = "FG|Lua", meta = (WorldContext = "WorldContextObject"))
-	static UFGLuaComponent* GetLuaComponentFromActor(UObject* WorldContextObject, class AActor* TargetActor, bool bUseFindComponent = true);
+	UFUNCTION(BlueprintPure, Category = "FG|Lua")
+	float GetBool(const FString& Name, bool bDefaultValue = false) const;
+
+	UFUNCTION(BlueprintCallable, Category = "FG|Lua")
+	void SetBool(bool bValue, const FString& Name);
 
 	struct lua_State* GetLuaState() const;
 

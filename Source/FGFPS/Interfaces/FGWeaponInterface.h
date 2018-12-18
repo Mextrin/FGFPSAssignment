@@ -16,6 +16,9 @@ class FGFPS_API IFGWeaponInterface
 public:
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "FG|Interface")
+	class AFGWeapon* GetWeaponInstance() const;
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "FG|Interface")
 	bool GetShootDirection(FVector& StartLocation, FVector& ForwardDirection) const;
 
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable, Category = "FG|Interface")

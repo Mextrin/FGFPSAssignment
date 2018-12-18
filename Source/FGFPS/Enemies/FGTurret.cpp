@@ -75,18 +75,6 @@ void AFGTurret::Tick(float DeltaSeconds)
 		const FVector Direction = (TargetActor->GetActorLocation() - CurrentWeapon->GetActorLocation()).GetSafeNormal();
 		CurrentWeapon->SetActorRotation(Direction.Rotation());
 	}
-
-	/*
-	TArray<FOverlapResult> Overlaps;
-	if (GetWorld()->OverlapMultiByObjectType(Overlaps, GetActorLocation(), FQuat::Identity, CachedCollisionObjectParams, CachedCollisionShape, CachedCollisionQueryParams))
-	{
-		for ( FOverlapResult& Overlap : Overlaps)
-		{
-			TargetActor = Overlap.Actor.Get();
-			break;
-		}
-	}
-	*/
 }
 
 bool AFGTurret::GetShootDirection_Implementation(FVector& StartLocation, FVector& ForwardDirection) const
@@ -140,16 +128,6 @@ void AFGTurret::Fire()
 	}
 
 	CurrentWeapon->Fire();
-}
-
-void AFGTurret::Die()
-{
-	BP_OnDie();
-}
-
-float AFGTurret::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser)
-{
-	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
 }
 
 void AFGTurret::StartDetection()

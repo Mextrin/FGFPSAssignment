@@ -1,17 +1,23 @@
 #pragma once
 
-#include "GameFramework/Character.h"
+#include "Character/FGCharacter.h"
 #include "FGEnemyCharacter.generated.h"
 
 UCLASS()
-class FGFPS_API AFGEnemyCharacter : public ACharacter
+class FGFPS_API AFGEnemyCharacter : public AFGCharacter
 {
 	GENERATED_BODY()
 public:
 
 	virtual float TakeDamage(float Damage, struct FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
 
+	// Kill this character
+	UFUNCTION(BlueprintCallable, Category = "FG|EnemyCharacter")
 	void Die();
+
+	// The enemy character will attempt to move towards this location
+	UFUNCTION(BlueprintCallable, Category = "FG|EnemyCharacter")
+	void SetTargetLocation(const FVector& TargetLocation);
 
 protected:
 	static const float TimeUntilRagdoll;

@@ -9,9 +9,12 @@ class FGFPS_API UFGPlayerInteractorComponent : public UFGInteractorComponent
 	GENERATED_BODY()
 public:
 
+	virtual void BeginPlay() override;
+
 	virtual void GetLookDirection(FVector& StartLocation, FVector& ForwardDirection) const override;
 	virtual float GetInteractionSpeed() const override;
 
 private:
-	class AFGCharacter* GetCharacterOwner() const;
+	UPROPERTY(Transient)
+	class AFGPlayerCharacter* PlayerOwner = nullptr;
 };

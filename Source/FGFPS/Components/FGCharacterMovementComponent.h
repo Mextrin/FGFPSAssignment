@@ -8,8 +8,11 @@ class FGFPS_API UFGCharacterMovementComponent : public UCharacterMovementCompone
 {
 	GENERATED_BODY()
 public:
+	virtual void BeginPlay() override;
+
 	virtual float GetMaxSpeed() const override;
 
 private:
-	class AFGCharacter* GetOwnerFGCharacter() const;
+	UPROPERTY(Transient)
+	class AFGCharacter* OwnerCharacter = nullptr;
 };

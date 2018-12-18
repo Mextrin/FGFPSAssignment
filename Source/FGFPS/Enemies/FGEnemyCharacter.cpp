@@ -4,6 +4,9 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "NavigationSystem.h"
+#include "AIController.h"
 
 const float AFGEnemyCharacter::TimeUntilRagdoll = 0.25f;
 
@@ -39,8 +42,6 @@ float AFGEnemyCharacter::TakeDamage(float Damage, struct FDamageEvent const& Dam
 				{
 					PlayAnimMontage(StaggerMontage);
 				}
-				
-				UKismetSystemLibrary::PrintString(GetWorld(), Hit.BoneName.ToString());
 			}
 		}
 		else
@@ -79,6 +80,22 @@ void AFGEnemyCharacter::Die()
 	FTimerManager& TimerManager = GetWorldTimerManager();
 	TimerManager.ClearTimer(RagdollTimerHandle);
 	TimerManager.SetTimer(RagdollTimerHandle, this, &AFGEnemyCharacter::DoRagdoll, TimeUntilRagdoll, false);
+}
+
+void AFGEnemyCharacter::SetTargetLocation(const FVector& TargetLocation)
+{
+	FVector ProjectedLocation;
+	if (UNavigationSystemV1::K2_ProjectPointToNavigation(GetWorld(), TargetLocation, ProjectedLocation, nullptr, TSubclassOf<UNavigationQueryFilter>()))
+	{
+		if (AAIController* AIController = Cast<AAIController>(GetController()))
+		{
+			AIController->GetBlackboardComponent()->SetValueAsVector(TEXT("MoveLocation"), TargetLocation);
+		}
+	}
+	else
+	{
+		UKismetSystemLibrary::PrintString(GetWorld(), FString( TEXT("[AFGEnemyCharacter::SetTargetLocation] Unable to project location on navigation.") ));
+	}
 }
 
 void AFGEnemyCharacter::DoRagdoll()

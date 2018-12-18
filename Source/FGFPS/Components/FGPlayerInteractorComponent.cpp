@@ -1,21 +1,21 @@
 #include "FGPlayerInteractorComponent.h"
-#include "Character/FGCharacter.h"
+#include "Player/FGPlayerCharacter.h"
 #include "Camera/CameraComponent.h"
+
+void UFGPlayerInteractorComponent::BeginPlay()
+{
+	Super::BeginPlay();
+
+	PlayerOwner = CastChecked<AFGPlayerCharacter>(GetOwner());
+}
 
 void UFGPlayerInteractorComponent::GetLookDirection(FVector& StartLocation, FVector& ForwardDirection) const
 {
-	AFGCharacter* PlayerCharacter = GetCharacterOwner();
-	StartLocation = PlayerCharacter->GetFirstPersonCameraComponent()->GetComponentLocation();
-	ForwardDirection = PlayerCharacter->GetFirstPersonCameraComponent()->GetForwardVector();
+	StartLocation = PlayerOwner->GetFirstPersonCameraComponent()->GetComponentLocation();
+	ForwardDirection = PlayerOwner->GetFirstPersonCameraComponent()->GetForwardVector();
 }
 
 float UFGPlayerInteractorComponent::GetInteractionSpeed() const
 {
 	return 3.0f;
 }
-
-AFGCharacter* UFGPlayerInteractorComponent::GetCharacterOwner() const
-{
-	return CastChecked<AFGCharacter>(GetOwner());
-}
-

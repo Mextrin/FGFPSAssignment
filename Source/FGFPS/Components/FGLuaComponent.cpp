@@ -31,7 +31,7 @@ void UFGLuaComponent::DestroyComponent(bool bPromoteChildren)
 void UFGLuaComponent::LoadFile()
 {
 	CloseLuaContext();
-	LuaContext->LoadFile(Filename);
+	GetLuaContext()->LoadFile(Filename);
 }
 
 void UFGLuaComponent::CallFunction(const FString& FunctionName)
@@ -41,59 +41,77 @@ void UFGLuaComponent::CallFunction(const FString& FunctionName)
 
 void UFGLuaComponent::CallFunction_OneParamNumber(const FString& FunctionName, float Param1)
 {
-	check(LuaContext != nullptr);
-	LuaContext->CallFunction(TCHAR_TO_ANSI(*FunctionName), Param1);
+	GetLuaContext()->CallFunction(TCHAR_TO_ANSI(*FunctionName), Param1);
+}
+
+void UFGLuaComponent::CallFunction_OneParamString(const FString& FunctionName, const FString& Param1)
+{
+	GetLuaContext()->CallFunction(TCHAR_TO_ANSI(*FunctionName), TCHAR_TO_ANSI(*Param1));
+}
+
+void UFGLuaComponent::CallFunction_TwoParamsNumber(const FString& FunctionName, float Param1, float Param2)
+{
+	GetLuaContext()->CallFunction(TCHAR_TO_ANSI(*FunctionName), Param1, Param2);
+}
+
+void UFGLuaComponent::CallFunction_TwoParamsStringNumber(const FString& FunctionName, const FString& Param1, float Param2)
+{
+	GetLuaContext()->CallFunction(TCHAR_TO_ANSI(*FunctionName), TCHAR_TO_ANSI(*Param1), Param2);
+}
+
+void UFGLuaComponent::CallFunction_ThreeParamsStringNumber(const FString& FunctionName, const FString& Param1, const FString& Param2, float Param3)
+{
+	GetLuaContext()->CallFunction(TCHAR_TO_ANSI(*FunctionName), TCHAR_TO_ANSI(*Param1), TCHAR_TO_ANSI(*Param2), Param3);
+}
+
+void UFGLuaComponent::CallFunction_FourParamsStringNumber(const FString& FunctionName, const FString& Param1, const FString& Param2, float Param3, float Param4)
+{
+	GetLuaContext()->CallFunction(TCHAR_TO_ANSI(*FunctionName), TCHAR_TO_ANSI(*Param1), TCHAR_TO_ANSI(*Param2), Param3, Param4);
 }
 
 bool UFGLuaComponent::CallFunction_RetValueBool(const FString& FunctionName)
 {
-	check(LuaContext != nullptr);
-	return LuaContext->CallFunction_RetValueBool(TCHAR_TO_ANSI(*FunctionName));
+	return GetLuaContext()->CallFunction_RetValueBool(TCHAR_TO_ANSI(*FunctionName));
 }
 
-float UFGLuaComponent::CallFunction_RetValueNumber(const FString& FunctionName, float DefaultValue /*= 0.0f*/)
+float UFGLuaComponent::CallFunction_RetValueNumber(const FString& FunctionName, float DefaultValue)
 {
-	check(LuaContext != nullptr);
-	return LuaContext->CallFunction_RetValueNumber(TCHAR_TO_ANSI(*FunctionName), DefaultValue);
+	return GetLuaContext()->CallFunction_RetValueNumber(TCHAR_TO_ANSI(*FunctionName), DefaultValue);
 }
 
-float UFGLuaComponent::GetNumber(const FString& Name) const
+FString UFGLuaComponent::CallFunction_RetValueString(const FString& FunctionName, const FString& DefaultValue)
 {
-	check(LuaContext != nullptr);
-	return LuaContext->GetNumber(TCHAR_TO_ANSI(*Name));
+	if (const char* RetValue = GetLuaContext()->CallFunction_RetValueString(TCHAR_TO_ANSI(*FunctionName)))
+	{
+		return FString(RetValue);
+	}
+
+	return DefaultValue;
+}
+
+float UFGLuaComponent::GetNumber(const FString& Name, float DefaultValue) const
+{
+	return GetLuaContext()->GetNumber(TCHAR_TO_ANSI(*Name), DefaultValue);
 }
 
 void UFGLuaComponent::SetNumber(float Number, const FString& Name)
 {
-	check(LuaContext != nullptr);
-	LuaContext->SetNumber(Number, TCHAR_TO_ANSI(*Name));
+	GetLuaContext()->SetNumber(Number, TCHAR_TO_ANSI(*Name));
 }
 
-UFGLuaComponent* UFGLuaComponent::GetLuaComponentFromActor(UObject* WorldContextObject, class AActor* TargetActor, bool bUseFindComponent /*= true*/)
+float UFGLuaComponent::GetBool(const FString& Name, bool bDefaultValue /*= false*/) const
 {
-	if (!TargetActor)
-	{
-		UKismetSystemLibrary::PrintString(WorldContextObject, TEXT("[GetLuaComponentFromActor] TargetActor is not valid."));
-		return nullptr;
-	}
+	return GetLuaContext()->GetBool(TCHAR_TO_ANSI(*Name), bDefaultValue);
+}
 
-	if (TargetActor->GetClass()->ImplementsInterface(UFGLuaComponentInterface::StaticClass()))
-	{
-		return IFGLuaComponentInterface::Execute_GetLuaComponent(TargetActor);
-	}
-
-	if (bUseFindComponent)
-	{
-		return TargetActor->FindComponentByClass<UFGLuaComponent>();
-	}
-
-	return nullptr;
+void UFGLuaComponent::SetBool(bool bValue, const FString& Name)
+{
+	GetLuaContext()->SetBool(bValue, TCHAR_TO_ANSI(*Name));
 }
 
 struct lua_State* UFGLuaComponent::GetLuaState() const
 {
-	check(LuaContext != nullptr);
-	return LuaContext->GetLuaState();
+	return GetLuaContext()->GetLuaState();
 }
 
 void UFGLuaComponent::CloseLuaContext()

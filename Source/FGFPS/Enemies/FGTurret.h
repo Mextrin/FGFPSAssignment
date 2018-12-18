@@ -25,13 +25,6 @@ public:
 
 	void Fire();
 
-	void Die();
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "FG|Turret", meta = (DisplayName = "On Die"))
-	void BP_OnDie();
-
-	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent, class AController* EventInstigator, AActor* DamageCauser) override;
-
 	void StartDetection();
 	void StopDetection();
 

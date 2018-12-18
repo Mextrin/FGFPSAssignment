@@ -27,6 +27,8 @@ void AFGWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 
+	// TODO: How to export a class and then a function on that class using luabridge
+	/*
 	getGlobalNamespace(LuaComponent->GetLuaState())
 		.beginClass<AFGWeapon>("Weapon")
 		.addFunction("Fire", &AFGWeapon::Fire)
@@ -34,13 +36,12 @@ void AFGWeapon::BeginPlay()
 
 	push(LuaComponent->GetLuaState(), this);
 	lua_setglobal(LuaComponent->GetLuaState(), "MyWeapon");
+	*/
 }
 
 void AFGWeapon::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
-
-	LuaComponent->CallFunction_OneParamNumber(TEXT("Tick"), DeltaSeconds);
 }
 
 void AFGWeapon::Fire()
@@ -64,7 +65,7 @@ void AFGWeapon::Fire()
 	const float HorizontalConeHalfAngleRad = FMath::DegreesToRadians(Spread != 0.0f ? Spread : 1.0f);
 	ForwardDirection = FMath::VRandCone(ForwardDirection, HorizontalConeHalfAngleRad);
 
-	const FVector EndLocation = StartLocation + (ForwardDirection * 10000.0f);
+	const FVector EndLocation = StartLocation + (ForwardDirection * 10000.0f); // 10000.0f Magic number, how far we are testing
 
 	FHitResult Hit;
 	if (UKismetSystemLibrary::LineTraceSingleByProfile(GetWorld(), StartLocation, EndLocation, UCollisionProfile::BlockAllDynamic_ProfileName, false, IgnoreActors, EDrawDebugTrace::ForDuration, Hit, true))
