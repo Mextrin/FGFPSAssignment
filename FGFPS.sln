@@ -1,19 +1,18 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.25807.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{7A1E6EB6-C5C4-45F5-B19E-1F98F4AD48C7}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{ED75AF6C-4FDB-4208-BD87-4AB0EA8557DC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{115024E2-CFB9-4C59-B4E4-D47FCA8A4305}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Games", "Games", "{01319285-A891-4027-9581-1EE5442A1A9E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UE4", "Intermediate\ProjectFiles\UE4.vcxproj", "{89E62C4A-4563-4E76-87B0-B2B98693CCC2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FGFPS", "Intermediate\ProjectFiles\FGFPS.vcxproj", "{F8930FF9-FB79-4EB9-BF34-64269188A4DC}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizers", "Visualizers", "{3DC60EBD-8827-48AF-AEA9-5A45A874927F}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Visualizers", "Visualizers", "{CA1C4258-B921-4125-BFD7-2B3B35705FDD}"
 	ProjectSection(SolutionItems) = preProject
-		C:\Program Files\Epic Games\UE_4.21\Engine\Extras\VisualStudioDebugging\UE4.natvis = C:\Program Files\Epic Games\UE_4.21\Engine\Extras\VisualStudioDebugging\UE4.natvis
+		..\..\Program Files\Epic Games\UE_4.21\Engine\Extras\VisualStudioDebugging\UE4.natvis = ..\..\Program Files\Epic Games\UE_4.21\Engine\Extras\VisualStudioDebugging\UE4.natvis
 	EndProjectSection
 EndProject
 Global
@@ -81,10 +80,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{89E62C4A-4563-4E76-87B0-B2B98693CCC2} = {7A1E6EB6-C5C4-45F5-B19E-1F98F4AD48C7}
-		{F8930FF9-FB79-4EB9-BF34-64269188A4DC} = {115024E2-CFB9-4C59-B4E4-D47FCA8A4305}
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {E1A9619E-537B-4F14-B9AA-5D5532A6AD20}
+		{89E62C4A-4563-4E76-87B0-B2B98693CCC2} = {ED75AF6C-4FDB-4208-BD87-4AB0EA8557DC}
+		{F8930FF9-FB79-4EB9-BF34-64269188A4DC} = {01319285-A891-4027-9581-1EE5442A1A9E}
+		{F8930FF9-FB79-4EB9-BF34-64269188A4DC} = {01319285-A891-4027-9581-1EE5442A1A9E}
 	EndGlobalSection
 EndGlobal
