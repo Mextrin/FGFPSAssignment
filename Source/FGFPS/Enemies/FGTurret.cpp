@@ -64,16 +64,16 @@ void AFGTurret::Tick(float DeltaSeconds)
 
 	LuaComponent->CallFunction_OneParamNumber(TEXT("Tick"), DeltaSeconds);
 
-	if (LuaComponent->CallFunction_RetValueBool(TEXT("CanWeaponShoot")))
-	{
-		Fire();
-		LuaComponent->CallFunction(TEXT("OnShoot"));
-	}
-
 	if (TargetActor)
 	{
 		const FVector Direction = (TargetActor->GetActorLocation() - CurrentWeapon->GetActorLocation()).GetSafeNormal();
 		CurrentWeapon->SetActorRotation(Direction.Rotation());
+
+		if (LuaComponent->CallFunction_RetValueBool(TEXT("CanWeaponShoot")))
+		{
+			Fire();
+			LuaComponent->CallFunction(TEXT("OnShoot"));
+		}
 	}
 }
 
