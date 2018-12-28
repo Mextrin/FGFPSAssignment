@@ -1,7 +1,7 @@
 
 CanShoot = true
 
-Cooldown = 0.4
+Cooldown = 0.05
 CurrentCooldown = 0
 
 RotationSpeed = 1
