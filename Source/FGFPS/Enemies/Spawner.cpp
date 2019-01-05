@@ -15,7 +15,6 @@ ASpawner::ASpawner()
 void ASpawner::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
