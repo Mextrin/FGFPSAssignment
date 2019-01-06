@@ -19,11 +19,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite) class USphereComponent* spawnRange;
+
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TSubclassOf<class AFGEnemyCharacter>> EnemyTypes;
-
-	//Time in seconds to spawn enemies from the point of a wave starting.
-	float TimeToSpawn = 10.f;
 
 public:	
 	// Called every frame
