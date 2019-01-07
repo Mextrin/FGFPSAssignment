@@ -31,9 +31,13 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "FG|Weapon")
 	void GetCurrentAmmo();
+	UFUNCTION(BlueprintCallable, Category = "FG|Weapon")
+	void GetMaxAmmo();
 
 	UPROPERTY(BlueprintReadWrite, Category = "FG|Weapon")
 	int CurrtAmmo = 0;
+	UPROPERTY(BlueprintReadWrite, Category = "FG|Weapon")
+	int MaxAmmo = 0;
 
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Mesh")

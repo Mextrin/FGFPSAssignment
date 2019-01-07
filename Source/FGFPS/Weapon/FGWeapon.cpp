@@ -99,12 +99,17 @@ void AFGWeapon::Reload()
 {
 	LuaComponent->CallFunction("Reload");
 	GetCurrentAmmo();
+	GetMaxAmmo();
 }
-
 
 void AFGWeapon::GetCurrentAmmo()
 {
 	CurrtAmmo = LuaComponent->GetNumber("CurrentAmmo");
+}
+
+void AFGWeapon::GetMaxAmmo()
+{
+	MaxAmmo = LuaComponent->GetNumber("MaxAmmo");
 }
 
 UFGLuaComponent* AFGWeapon::GetLuaComponent_Implementation() const
