@@ -42,7 +42,7 @@ void AFGCharacter::EquipNewWeapon(UFGWeaponSchematic* NewWeaponSchematic, FName 
 
 UFGLuaContext* AFGCharacter::GetLuaContext() const
 {
-	return GetLuaComponent()->GetLuaContext();
+ 	return GetLuaComponent()->GetLuaContext();
 }
 
 bool AFGCharacter::IsCharacterMoving() const

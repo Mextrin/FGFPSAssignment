@@ -20,6 +20,8 @@ public:
 	void SetTargetLocation(const FVector& TargetLocation);
 
 protected:
+	virtual void BeginPlay() override;
+
 	static const float TimeUntilRagdoll;
 
 	UPROPERTY(EditAnywhere, Category = Animation)

@@ -7,6 +7,18 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "NavigationSystem.h"
 #include "AIController.h"
+#include "Kismet/GameplayStatics.h"
+#include "Destination.h"
+
+void AFGEnemyCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	TArray<AActor*> FoundActors;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), ADestination::StaticClass(), FoundActors);
+
+	SetTargetLocation(FoundActors[0]->GetActorLocation());
+}
 
 const float AFGEnemyCharacter::TimeUntilRagdoll = 0.25f;
 
