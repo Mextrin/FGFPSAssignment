@@ -64,7 +64,7 @@ void AFGTurret::Tick(float DeltaSeconds)
 
 	LuaComponent->CallFunction_OneParamNumber(TEXT("Tick"), DeltaSeconds);
 
-	if (TargetActor)
+	if (IsValid(TargetActor))
 	{
 		const FVector Direction = (TargetActor->GetActorLocation() - CurrentWeapon->GetActorLocation()).GetSafeNormal();
 		CurrentWeapon->SetActorRotation(Direction.Rotation());

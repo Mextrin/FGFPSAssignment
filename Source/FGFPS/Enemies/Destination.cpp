@@ -35,7 +35,7 @@ void ADestination::OnEnterDest(UPrimitiveComponent* OverlappedComponent, AActor*
 {
 	if (OtherActor->IsA(AFGEnemyCharacter::StaticClass()))
 	{
-		Cast<AFGEnemyCharacter>(OtherActor)->Die();
+		OtherActor->Destroy();
 	}
 }
 
