@@ -66,6 +66,8 @@ protected:
 
 	void FirePressed();
 
+	void ReloadPressed();
+
 	void MoveForward(float Val);
 
 	void MoveRight(float Val);

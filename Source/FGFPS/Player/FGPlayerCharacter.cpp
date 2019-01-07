@@ -83,6 +83,8 @@ void AFGPlayerCharacter::SetupPlayerInputComponent(UInputComponent* InputCompone
 
 	InputComponent->BindAction("Fire", IE_Pressed, this, &AFGPlayerCharacter::FirePressed);
 
+	InputComponent->BindAction("Reload", IE_Pressed, this, &AFGPlayerCharacter::ReloadPressed);
+
 	InputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	InputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 
@@ -191,6 +193,14 @@ void AFGPlayerCharacter::FirePressed()
 	if (CurrentWeapon)
 	{
 		CurrentWeapon->Fire();
+	}
+}
+
+void AFGPlayerCharacter::ReloadPressed()
+{
+	if (CurrentWeapon)
+	{
+		CurrentWeapon->Reload();
 	}
 }
 

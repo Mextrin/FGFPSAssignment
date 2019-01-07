@@ -20,12 +20,20 @@ public:
 
 	void Fire();
 
+	void Reload();
+
 	UPROPERTY(BlueprintAssignable, Category = "FG|Weapon")
 	FFGOnFireDelegate OnFire;
 
 	class UFGLuaComponent* GetLuaComponent_Implementation() const;
 
 	FORCEINLINE USkeletalMeshComponent* GetWeaponMesh() const { return WeaponMesh; }
+
+	UFUNCTION(BlueprintCallable, Category = "FG|Weapon")
+	void GetCurrentAmmo();
+
+	UPROPERTY(BlueprintReadWrite, Category = "FG|Weapon")
+	int CurrtAmmo = 0;
 
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Mesh")
