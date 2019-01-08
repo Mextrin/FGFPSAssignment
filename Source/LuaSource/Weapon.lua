@@ -28,8 +28,8 @@ function Tick(DeltaSeconds)
 	if DamageBoostTimer <= 0 then
 		Damage = 10
 	end
-	ue4.print(MaxAmmo)
-	ue4.print(CurrentAmmo)
+	--ue4.print(MaxAmmo)
+	--ue4.print(CurrentAmmo)
 end
 
 function BeginPlay()
