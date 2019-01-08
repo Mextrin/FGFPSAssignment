@@ -22,16 +22,19 @@ public:
 	void StartWave();
 	
 	UPROPERTY(EditAnywhere)
-		int waveAmount = 10;
+		int WaveAmount = 10;
 
 	UPROPERTY(EditAnywhere)
-		int waveCurrent = 1;
+		int WaveCurrent = 0;
 
 	UPROPERTY(EditAnywhere)
-		int enemiesPerWave = 15;
+		int EnemiesPerWave = 15;
 
 	UPROPERTY()
-		int enemiesAlive = 0;
+		int EnemiesAlive = 0;
+
+	UPROPERTY(EditDefaultsToFail)
+		int EnemiesToFail = 10;
 
 protected:
 	
