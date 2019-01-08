@@ -130,6 +130,16 @@ void AFGTurret::Fire()
 	CurrentWeapon->Fire();
 }
 
+void AFGTurret::Reload()
+{
+	if (!CurrentWeapon)
+	{
+		return;
+	}
+
+	CurrentWeapon->Reload();
+}
+
 void AFGTurret::StartDetection()
 {
 	StopDetection();
