@@ -29,15 +29,18 @@ public:
 
 	FORCEINLINE USkeletalMeshComponent* GetWeaponMesh() const { return WeaponMesh; }
 
-	UFUNCTION(BlueprintCallable, Category = "FG|Weapon")
-	void GetCurrentAmmo();
-	UFUNCTION(BlueprintCallable, Category = "FG|Weapon")
-	void GetMaxAmmo();
-
 	UPROPERTY(BlueprintReadWrite, Category = "FG|Weapon")
 	int CurrtAmmo = 0;
-	UPROPERTY(BlueprintReadWrite, Category = "FG|Weapon")
-	int MaxAmmo = 0;
+
+	UPROPERTY(EditAnywhere)
+	bool InfiniteAmmo = false;
+
+	UFUNCTION(BlueprintCallable)
+	void SetInfiniteAmmo();
+	UFUNCTION(BlueprintCallable)
+	void SpreadBoost();
+	UFUNCTION(BlueprintCallable)
+	void DamageBoost();
 
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Mesh")

@@ -25,6 +25,9 @@ public:
 
 	void Fire();
 
+	UFUNCTION(BlueprintCallable)
+	void Reload();
+
 	void StartDetection();
 	void StopDetection();
 
@@ -60,7 +63,7 @@ protected:
 	UPROPERTY(Transient)
 	AActor* TargetActor = nullptr;
 
-	UPROPERTY(Transient)
+	UPROPERTY(Transient, BlueprintReadOnly)
 	class AFGWeapon* CurrentWeapon = nullptr;
 
 	UPROPERTY(Transient)

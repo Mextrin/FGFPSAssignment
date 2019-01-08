@@ -7,13 +7,33 @@ CurrentAmmo = 0
 MaxReloadTimer = 2.0
 CurrentReloadTimer = 0.0
 
+InfiniteAmmo = false
+InfiniteAmmoTimer = 5.0
+
+DecreaseSpreadTimer = 10.0
+DamageBoostTimer = 8.0
+
 function Tick(DeltaSeconds)
 	CurrentReloadTimer = CurrentReloadTimer - DeltaSeconds
-	ue4.print(MaxAmmo)
+	InfiniteAmmoTimer = InfiniteAmmoTimer - DeltaSeconds
+	DecreaseSpreadTimer = DecreaseSpreadTimer - DeltaSeconds
+	DamageBoostTimer = DamageBoostTimer - DeltaSeconds
+	
+	if InfiniteAmmoTimer <= 0 then
+		InfiniteAmmo = false
+	end
+	if DecreaseSpreadTimer <= 0 then
+		Spread = 6
+	end
+	if DamageBoostTimer <= 0 then
+		Damage = 10
+	end
+	--ue4.print(MaxAmmo)
+	--ue4.print(CurrentAmmo)
 end
 
 function BeginPlay()
-	CurrentAmmo = ReloadAmount;
+	CurrentAmmo = ReloadAmount
 end
 
 function Reload()
@@ -29,4 +49,19 @@ function Reload()
 
 		MaxAmmo = MaxAmmo - ReloadAmount
 	end
+end
+
+function SetInfiniteAmmo()
+	InfiniteAmmoTimer = 5.0
+	InfiniteAmmo = true
+end
+
+function DecreaseSpread()
+	DecreaseSpreadTimer = 10.0
+	Spread = 1
+end
+
+function DamageBoost()
+	DamageBoostTimer = 8.0
+	Damage = Damage * 3
 end

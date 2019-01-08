@@ -28,7 +28,7 @@ void AFGWeapon::BeginPlay()
 {
 	Super::BeginPlay();
 	LuaComponent->CallFunction("BeginPlay");
-
+	CurrtAmmo = LuaComponent->GetNumber("CurrentAmmo");
 	// TODO: How to export a class and then a function on that class using luabridge
 	//getGlobalNamespace(LuaComponent->GetLuaState())
 	//	.beginClass<AFGWeapon>("Weapon")
@@ -43,8 +43,9 @@ void AFGWeapon::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	LuaComponent->CallFunction_OneParamNumber("Tick", DeltaSeconds);
+	InfiniteAmmo = LuaComponent->GetBool("InfiniteAmmo");
 	//Debug print on screen ammount of current ammo
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Current Ammo = %d"), CurrtAmmo));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Damage = %d"),Damagee ));
 }
 
 void AFGWeapon::Fire()
@@ -77,7 +78,7 @@ void AFGWeapon::Fire()
 		{
 			if (Hit.Actor.IsValid()) // Formality
 			{
-				const float Damage = LuaComponent->GetNumber(TEXT("Damage"));
+				float Damage = LuaComponent->GetNumber(TEXT("Damage"));
 
 				FPointDamageEvent DamageEvent;
 				DamageEvent.Damage = Damage;
@@ -88,31 +89,42 @@ void AFGWeapon::Fire()
 			
 			}
 		}
-		CurrtAmmo--;
-		//THIS IS FOR UI TO UPDATE
-		LuaComponent->SetNumber(CurrtAmmo, "CurrentAmmo");
+
+		if (!InfiniteAmmo)
+		{
+			CurrtAmmo--;
+			LuaComponent->SetNumber(CurrtAmmo, "CurrentAmmo");
+		}
 		OnFire.Broadcast();
 	}
 }
 
 void AFGWeapon::Reload()
 {
-	LuaComponent->CallFunction("Reload");
-	GetCurrentAmmo();
-	GetMaxAmmo();
-}
-
-void AFGWeapon::GetCurrentAmmo()
-{
-	CurrtAmmo = LuaComponent->GetNumber("CurrentAmmo");
-}
-
-void AFGWeapon::GetMaxAmmo()
-{
-	MaxAmmo = LuaComponent->GetNumber("MaxAmmo");
+	if (!InfiniteAmmo)
+	{
+		LuaComponent->CallFunction("Reload");
+		CurrtAmmo = LuaComponent->GetNumber("CurrentAmmo");
+	}
 }
 
 UFGLuaComponent* AFGWeapon::GetLuaComponent_Implementation() const
 {
 	return LuaComponent;
 }
+
+void AFGWeapon::SetInfiniteAmmo()
+{
+	LuaComponent->CallFunction("SetInfiniteAmmo");
+}
+
+void AFGWeapon::SpreadBoost()
+{
+	LuaComponent->CallFunction("DecreaseSpread");
+}
+
+void AFGWeapon::DamageBoost()
+{
+	LuaComponent->CallFunction("DamageBoost");
+}
+
