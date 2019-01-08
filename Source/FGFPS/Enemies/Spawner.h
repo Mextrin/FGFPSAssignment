@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite) class USphereComponent* spawnRange;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite) class USphereComponent* SpawnRange;
 
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TSubclassOf<class AFGEnemyCharacter>> EnemyTypes;
@@ -28,4 +28,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION()
+	void OnSpawnerExit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
+
+	bool CanSpawn;
 };

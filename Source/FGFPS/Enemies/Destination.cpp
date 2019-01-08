@@ -11,8 +11,8 @@ ADestination::ADestination()
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	destRange = CreateDefaultSubobject<USphereComponent>("Range sphere");
-	RootComponent = destRange;
+	DestRange = CreateDefaultSubobject<USphereComponent>("Range sphere");
+	RootComponent = DestRange;
 
 }
 
@@ -21,8 +21,7 @@ void ADestination::BeginPlay()
 {
 	Super::BeginPlay();
 
-	destRange->OnComponentBeginOverlap.AddDynamic(this, &ADestination::OnEnterDest);
-	
+	DestRange->OnComponentBeginOverlap.AddDynamic(this, &ADestination::OnEnterDest);
 }
 
 // Called every frame

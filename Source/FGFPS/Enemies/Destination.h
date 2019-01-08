@@ -20,7 +20,7 @@ protected:
 	virtual void BeginPlay() override;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	class USphereComponent* destRange;
+	class USphereComponent* DestRange;
 
 public:	
 	// Called every frame
