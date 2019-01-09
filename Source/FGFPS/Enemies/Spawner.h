@@ -10,8 +10,8 @@ UCLASS()
 class FGFPS_API ASpawner : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ASpawner();
 
@@ -19,17 +19,17 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite) class USphereComponent* SpawnRange;
-
 	UPROPERTY(EditDefaultsOnly)
-	TArray<TSubclassOf<class AFGEnemyCharacter>> EnemyTypes;
+		TArray<TSubclassOf<class AFGEnemyCharacter>> EnemyTypes;
 
-public:	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		TArray<class ASpawnerNode*> SpawnNodes;
+
+	int ToSpawn = 9;
+
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION()
-	void OnSpawnerExit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
-
-	bool CanSpawn;
+	void SpawnEnemies(int Amount);
 };
