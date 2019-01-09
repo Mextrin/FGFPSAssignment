@@ -5,6 +5,7 @@
 #include "Components/SphereComponent.h"
 #include "../../../../../Program Files/Epic Games/UE_4.21/Engine/Source/Runtime/Engine/Classes/Engine/World.h"
 #include "SpawnerNode.h"
+#include "GameController.h"
 
 // Sets default values
 ASpawner::ASpawner()

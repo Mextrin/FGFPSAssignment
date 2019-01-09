@@ -9,6 +9,7 @@
 #include "AIController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Destination.h"
+#include "GameController.h"
 
 void AFGEnemyCharacter::BeginPlay()
 {
@@ -92,6 +93,19 @@ void AFGEnemyCharacter::Die()
 	FTimerManager& TimerManager = GetWorldTimerManager();
 	TimerManager.ClearTimer(RagdollTimerHandle);
 	TimerManager.SetTimer(RagdollTimerHandle, this, &AFGEnemyCharacter::DoRagdoll, TimeUntilRagdoll, false);
+
+	//Notify GameController
+	AGameController* CurrentGameController = Cast<AGameController>(GetWorld()->GetAuthGameMode());
+	CurrentGameController->EnemyDecrease();
+
+	//Destroy body after 5 seconds
+	FTimerHandle Timer;
+	GetWorldTimerManager().SetTimer(Timer, this, &AFGEnemyCharacter::RemoveBody, 5.0f);
+}
+
+void AFGEnemyCharacter::RemoveBody()
+{
+	Destroy();
 }
 
 void AFGEnemyCharacter::SetTargetLocation(const FVector& TargetLocation)

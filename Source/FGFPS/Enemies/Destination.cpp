@@ -4,6 +4,7 @@
 #include "Components/SphereComponent.h"
 #include "Engine/Engine.h"
 #include "FGEnemyCharacter.h"
+#include "GameController.h"
 
 // Sets default values
 ADestination::ADestination()
@@ -34,6 +35,8 @@ void ADestination::OnEnterDest(UPrimitiveComponent* OverlappedComponent, AActor*
 {
 	if (OtherActor->IsA(AFGEnemyCharacter::StaticClass()))
 	{
+		AGameController* CurrentGameController = Cast<AGameController>(GetWorld()->GetAuthGameMode());
+		CurrentGameController->EnemyTargetReached();
 		OtherActor->Destroy();
 	}
 }

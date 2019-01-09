@@ -25,7 +25,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TArray<class ASpawnerNode*> SpawnNodes;
 
-	int ToSpawn = 9;
+	int ToSpawn = 0;
 
 public:
 	// Called every frame

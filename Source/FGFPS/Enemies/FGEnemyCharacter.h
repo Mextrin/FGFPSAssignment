@@ -15,6 +15,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "FG|EnemyCharacter")
 	void Die();
 
+	void RemoveBody();
+
 	// The enemy character will attempt to move towards this location
 	UFUNCTION(BlueprintCallable, Category = "FG|EnemyCharacter")
 	void SetTargetLocation(const FVector& TargetLocation);

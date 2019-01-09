@@ -17,21 +17,36 @@ class FGFPS_API AGameController : public AGameMode
 public:
 	AGameController();
 
+
+	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
-	void StartWave();
+	UFUNCTION(BlueprintCallable)
+		void StartWave();
+
+	UFUNCTION(BlueprintCallable)
+		void EnemyDecrease();
+
+	UFUNCTION(BlueprintCallable)
+		void EnemyTargetReached();
 	
 	UPROPERTY(EditAnywhere)
-		int waveAmount = 10;
+		int WaveAmount = 10;
 
 	UPROPERTY(EditAnywhere)
-		int waveCurrent = 1;
+		int WaveCurrent = 0;
 
 	UPROPERTY(EditAnywhere)
-		int enemiesPerWave = 15;
+		int EnemiesPerWave = 15;
 
 	UPROPERTY()
-		int enemiesAlive = 0;
+		int EnemyCount = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+		int EnemiesToFail = 5;
+
+	TArray<class ASpawner*> SpawnerList;
+	bool WaveInProgress = false;
 
 protected:
 	
