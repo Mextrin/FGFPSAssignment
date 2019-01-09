@@ -42,6 +42,9 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void DamageBoost();
 
+	UFUNCTION()
+	void AddAmmo();
+
 private:
 	UPROPERTY(VisibleDefaultsOnly, Category = "Mesh")
 	class USkeletalMeshComponent* WeaponMesh = nullptr;
