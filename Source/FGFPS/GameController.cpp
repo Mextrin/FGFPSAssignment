@@ -17,6 +17,5 @@ void AGameController::Tick(float DeltaTime)
 
 void AGameController::StartWave()
 {
-	WaveCurrent++;
-
+	waveCurrent++;
 }
