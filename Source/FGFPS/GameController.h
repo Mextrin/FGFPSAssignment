@@ -23,6 +23,8 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 		void StartWave();
+		
+	void DoSpawn();
 
 	UFUNCTION(BlueprintCallable)
 		void EnemyDecrease();

@@ -4,6 +4,7 @@
 #include "Engine/Engine.h"
 #include "Enemies/Spawner.h"
 #include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
 
 AGameController::AGameController()
 {
@@ -23,10 +24,9 @@ void AGameController::BeginPlay()
 
 void AGameController::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
-
 	StartWave();
 }
+
 
 void AGameController::StartWave()
 {
@@ -35,10 +35,17 @@ void AGameController::StartWave()
 		WaveInProgress = true;
 		WaveCurrent++;
 
-		SpawnerList[0]->SpawnEnemies(EnemiesPerWave);
 
-		EnemyCount += EnemiesPerWave;
+		FTimerHandle Timer;
+		GetWorldTimerManager().SetTimer(Timer, this, &AGameController::DoSpawn, 5.0f);
 	}
+}
+
+void AGameController::DoSpawn()
+{
+	SpawnerList[0]->SpawnEnemies(EnemiesPerWave);
+
+	EnemyCount += EnemiesPerWave;
 }
 
 void AGameController::EnemyDecrease()
@@ -61,7 +68,7 @@ void AGameController::EnemyTargetReached()
 		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("Game Lost"));
 
 		//Disable player input.
-		APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+		APlayerController* PlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
 		PlayerController->DisableInput(PlayerController);
 
 		//Show Defeat UI.
