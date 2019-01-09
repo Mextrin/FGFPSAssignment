@@ -4,21 +4,18 @@
 #include "FGEnemyCharacter.h"
 #include "Components/SphereComponent.h"
 #include "../../../../../Program Files/Epic Games/UE_4.21/Engine/Source/Runtime/Engine/Classes/Engine/World.h"
+#include "SpawnerNode.h"
 
 // Sets default values
 ASpawner::ASpawner()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	
-	SpawnRange = CreateDefaultSubobject<USphereComponent>("Range sphere");
-	RootComponent = SpawnRange;
 }
 
 // Called when the game starts or when spawned
 void ASpawner::BeginPlay()
 {
-	SpawnRange->OnComponentEndOverlap.AddDynamic(this, &ASpawner::OnSpawnerExit);
 	Super::BeginPlay();
 }
 
@@ -27,21 +24,19 @@ void ASpawner::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (CanSpawn)
+	if (ToSpawn > 0)
 	{
-		CanSpawn = false;
+		for (int i = 0; i < SpawnNodes.Num(); i++)
+		{
+			bool Success = SpawnNodes[i]->Spawn(EnemyTypes[0]);
 
-		FActorSpawnParameters SpawnInfo;
-		SpawnInfo.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-		GetWorld()->SpawnActor<AFGEnemyCharacter>(EnemyTypes[0], GetActorLocation(), GetActorRotation(), SpawnInfo);
+			if (Success) ToSpawn--;
+		}
 	}
 }
 
-void ASpawner::OnSpawnerExit(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
+void ASpawner::SpawnEnemies(int Amount)
 {
-	if (OtherActor->IsA(AFGEnemyCharacter::StaticClass()))
-	{
-		CanSpawn = true;
-	}
+	ToSpawn += Amount;
+	GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Yellow, FString::Printf(TEXT("Added %d enemies to spawn"), Amount));
 }
-
