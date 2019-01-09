@@ -53,7 +53,11 @@ function Reload()
 end
 
 function AddAmmo()
+	if MaxAmmo > 132 then
+		MaxAmmo = 164
+	else
 		MaxAmmo = MaxAmmo + AmmoPickUpAmount
+	end
 end
 
 function SetInfiniteAmmo()
