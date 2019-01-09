@@ -24,6 +24,8 @@ void AGameController::BeginPlay()
 void AGameController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	StartWave();
 }
 
 void AGameController::StartWave()
@@ -33,10 +35,9 @@ void AGameController::StartWave()
 		WaveInProgress = true;
 		WaveCurrent++;
 
-		int enemiesToSpawn = 15;
-		SpawnerList[0]->SpawnEnemies(enemiesToSpawn);
+		SpawnerList[0]->SpawnEnemies(EnemiesPerWave);
 
-		EnemyCount += enemiesToSpawn;
+		EnemyCount += EnemiesPerWave;
 	}
 }
 
