@@ -32,10 +32,10 @@ public:
 	UFUNCTION(BlueprintCallable)
 		void EnemyTargetReached();
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 		int WaveAmount = 10;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 		int WaveCurrent = 0;
 
 	UPROPERTY(EditAnywhere)
@@ -44,7 +44,7 @@ public:
 	UPROPERTY()
 		int EnemyCount = 0;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 		int EnemiesToFail = 5;
 
 	TArray<class ASpawner*> SpawnerList;

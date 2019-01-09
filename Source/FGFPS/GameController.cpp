@@ -20,6 +20,8 @@ void AGameController::BeginPlay()
 	{
 		SpawnerList.Add(Cast<ASpawner>(SpawnerActors[i]));
 	}
+
+	//Try out game state
 }
 
 void AGameController::Tick(float DeltaTime)
@@ -34,7 +36,6 @@ void AGameController::StartWave()
 	{
 		WaveInProgress = true;
 		WaveCurrent++;
-
 
 		FTimerHandle Timer;
 		GetWorldTimerManager().SetTimer(Timer, this, &AGameController::DoSpawn, 5.0f);
@@ -63,13 +64,16 @@ void AGameController::EnemyTargetReached()
 	EnemiesToFail--;
 	EnemyDecrease();
 
+	if (EnemiesToFail < 0) EnemiesToFail = 0;
 	if (EnemiesToFail <= 0)
 	{
 		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("Game Lost"));
 
 		//Disable player input.
-		APlayerController* PlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
-		PlayerController->DisableInput(PlayerController);
+		//APlayerController* PlayerController = GEngine->GetFirstLocalPlayerController(GetWorld());
+		//PlayerController->DisableInput(PlayerController);
+
+		DisableInput(UGameplayStatics::GetPlayerController(GetWorld(), 0));
 
 		//Show Defeat UI.
 		//Restart after a couple seconds.
