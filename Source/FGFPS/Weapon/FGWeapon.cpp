@@ -128,3 +128,8 @@ void AFGWeapon::DamageBoost()
 	LuaComponent->CallFunction("DamageBoost");
 }
 
+void AFGWeapon::AddAmmo()
+{
+	LuaComponent->CallFunction("AddAmmo");
+}
+

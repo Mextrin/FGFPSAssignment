@@ -125,6 +125,14 @@ void AFGPlayerCharacter::EquipNewWeapon(class UFGWeaponSchematic* NewWeaponSchem
 	}
 }
 
+void AFGPlayerCharacter::AddAmmo()
+{
+	if (CurrentWeapon)
+	{
+		CurrentWeapon->AddAmmo();
+	}
+}
+
 void AFGPlayerCharacter::HandleWeaponFire()
 {
 	Super::HandleWeaponFire();

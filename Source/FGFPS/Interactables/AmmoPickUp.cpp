@@ -5,7 +5,8 @@
 #include "Engine/Engine.h"
 #include "Components/SceneComponent.h"
 
-AFGAmmoPickUp::AFGAmmoPickUp(const FObjectInitializer& ObjectInitializer)
+AFGAmmoPickUp::AFGAmmoPickUp(const FObjectInitializer& ObjectInitializer) :
+	Super(ObjectInitializer)
 {
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -15,48 +16,55 @@ AFGAmmoPickUp::AFGAmmoPickUp(const FObjectInitializer& ObjectInitializer)
 
 	HitBoxRange = ObjectInitializer.CreateDefaultSubobject<USphereComponent>(this, TEXT("HitBoxRange"));
 	HitBoxRange->SetupAttachment(Mesh);
+	HitBoxRange->RelativeLocation = FVector(0.f, 0.f, 0.f);
 	HitBoxRange->SetSphereRadius(32.0f);
-	HitBoxRange->SetGenerateOverlapEvents(true);
 
 }
 
 void AFGAmmoPickUp::BeginPlay()
 {
 	Super::BeginPlay();
-	//HitBoxRange->OnComponentBeginOverlap.AddDynamic(this, &AFGAmmoPickUp::PickUp);
+	Mesh->OnComponentBeginOverlap.AddDynamic(this, &AFGAmmoPickUp::PickUp);
 }
 
 void AFGAmmoPickUp::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 	Mesh->AddLocalRotation(FRotator(0, 1.f, 0));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("%f"),RespawnTimer));
 	RespawnTimer -= DeltaSeconds;
 	if (RespawnTimer <= 0)
 	{
 		EnablePickUp();
+		Triggered = false;
 	}
 }
 
 void AFGAmmoPickUp::PickUp(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("You pickup")));
 	if (OtherActor->IsA(AFGPlayerCharacter::StaticClass()))
 	{
-		//AFGPlayerCharacter::CurrentWeapon->CurrtAmmo += AmmoAmount;
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("You pickup")));
+		Cast<AFGPlayerCharacter>(OtherActor)->AddAmmo();
 		DisablePickUp();
 	}
 }
 
 void AFGAmmoPickUp::DisablePickUp()
 {
-	Mesh->Deactivate();
-	HitBoxRange->Deactivate();
+	Mesh->ToggleVisibility(false);
+	HitBoxRange->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	RespawnTimer = 10.0f;
+	Triggered = true;
 }
 
 void AFGAmmoPickUp::EnablePickUp()
 {
-	Mesh->Activate(true);
-	HitBoxRange->Activate(true);
+	if (Triggered)
+	{
+		Mesh->ToggleVisibility(true);
+		HitBoxRange->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	}
+	else{}
 }
 

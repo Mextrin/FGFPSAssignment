@@ -3,6 +3,7 @@ Damage = 10
 
 MaxAmmo = 128
 ReloadAmount = 32
+AmmoPickUpAmount = 32
 CurrentAmmo = 0
 MaxReloadTimer = 2.0
 CurrentReloadTimer = 0.0
@@ -49,6 +50,10 @@ function Reload()
 
 		MaxAmmo = MaxAmmo - ReloadAmount
 	end
+end
+
+function AddAmmo()
+		MaxAmmo = MaxAmmo + AmmoPickUpAmount
 end
 
 function SetInfiniteAmmo()

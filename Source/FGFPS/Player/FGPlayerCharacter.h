@@ -29,6 +29,9 @@ public:
 
 	virtual void EquipNewWeapon(class UFGWeaponSchematic* NewWeaponSchematic, FName SocketName) override;
 
+	UFUNCTION()
+	void AddAmmo();
+
 protected:
 
 	virtual void HandleWeaponFire() override;
