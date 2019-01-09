@@ -9,6 +9,8 @@
 #include "lua.hpp"
 #include "LuaBridge/LuaBridge.h"
 #include "Engine/Engine.h"
+#include "Kismet/GameplayStatics.h"
+#include "Player/FGPlayerCharacter.h"
 
 using namespace luabridge;
 
@@ -29,6 +31,9 @@ void AFGWeapon::BeginPlay()
 	Super::BeginPlay();
 	LuaComponent->CallFunction("BeginPlay");
 	CurrtAmmo = LuaComponent->GetNumber("CurrentAmmo");
+	TArray<AActor*> Players;
+	UGameplayStatics::GetAllActorsOfClass(GetWorld(), AFGPlayerCharacter::StaticClass(), Players);
+	AnotherCharWeapon = Cast<AFGPlayerCharacter>(Players[0]);
 	// TODO: How to export a class and then a function on that class using luabridge
 	//getGlobalNamespace(LuaComponent->GetLuaState())
 	//	.beginClass<AFGWeapon>("Weapon")
@@ -45,7 +50,7 @@ void AFGWeapon::Tick(float DeltaSeconds)
 	LuaComponent->CallFunction_OneParamNumber("Tick", DeltaSeconds);
 	InfiniteAmmo = LuaComponent->GetBool("InfiniteAmmo");
 	//Debug print on screen ammount of current ammo
-	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Damage = %d"),Damagee ));
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("AmountRemoved = %d"),AmmoToAdd ));
 }
 
 void AFGWeapon::Fire()
@@ -106,6 +111,18 @@ void AFGWeapon::Reload()
 		LuaComponent->CallFunction("Reload");
 		CurrtAmmo = LuaComponent->GetNumber("CurrentAmmo");
 	}
+}
+
+void AFGWeapon::RemoveAmmo()
+{
+	LuaComponent->CallFunction("RemoveAmmo");
+	AmmoToAdd = LuaComponent->GetNumber("RemovedAmmo");
+}
+
+void AFGWeapon::AddAmmoToTurret()
+{
+	CurrtAmmo = AnotherCharWeapon->CurrentWeapon->AmmoToAdd;
+	LuaComponent->SetNumber(CurrtAmmo, "CurrentAmmo");
 }
 
 UFGLuaComponent* AFGWeapon::GetLuaComponent_Implementation() const

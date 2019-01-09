@@ -22,6 +22,14 @@ public:
 
 	void Reload();
 
+	UFUNCTION(BlueprintCallable)
+	void RemoveAmmo();
+
+	UFUNCTION(BlueprintCallable)
+	void AddAmmoToTurret();
+
+	int AmmoToAdd = 0;
+
 	UPROPERTY(BlueprintAssignable, Category = "FG|Weapon")
 	FFGOnFireDelegate OnFire;
 
@@ -41,8 +49,7 @@ public:
 	void SpreadBoost();
 	UFUNCTION(BlueprintCallable)
 	void DamageBoost();
-
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void AddAmmo();
 
 private:
@@ -51,4 +58,6 @@ private:
 
 	UPROPERTY(VisibleDefaultsOnly, Category = "Mesh")
 	class UFGLuaComponent* LuaComponent = nullptr;
+
+	class AFGPlayerCharacter* AnotherCharWeapon;
 };

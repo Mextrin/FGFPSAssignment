@@ -29,13 +29,14 @@ public:
 	UFUNCTION()
 	virtual void HandleWeaponFire();
 
+	UPROPERTY(Transient)
+	class AFGWeapon* CurrentWeapon = nullptr;
+
 protected:
 
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite, Category = Lua)
 	class UFGLuaComponent* LuaComponent = nullptr;
 
-	UPROPERTY(Transient)
-	class AFGWeapon* CurrentWeapon = nullptr;
 
 	UPROPERTY(Transient)
 	class UFGWeaponSchematic* WeaponSchematic = nullptr;

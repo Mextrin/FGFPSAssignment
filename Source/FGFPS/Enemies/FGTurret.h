@@ -25,9 +25,6 @@ public:
 
 	void Fire();
 
-	UFUNCTION(BlueprintCallable)
-	void Reload();
-
 	void StartDetection();
 	void StopDetection();
 

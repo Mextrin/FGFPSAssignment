@@ -5,6 +5,7 @@ MaxAmmo = 128
 ReloadAmount = 32
 AmmoPickUpAmount = 32
 CurrentAmmo = 0
+RemovedAmmo = 0
 MaxReloadTimer = 2.0
 CurrentReloadTimer = 0.0
 
@@ -30,7 +31,7 @@ function Tick(DeltaSeconds)
 		Damage = 10
 	end
 	--ue4.print(MaxAmmo)
-	--ue4.print(CurrentAmmo)
+	ue4.print(CurrentAmmo)
 end
 
 function BeginPlay()
@@ -57,6 +58,16 @@ function AddAmmo()
 		MaxAmmo = 164
 	else
 		MaxAmmo = MaxAmmo + AmmoPickUpAmount
+	end
+end
+
+function RemoveAmmo()
+	if MaxAmmo > 32 then
+		RemovedAmmo = 32
+		MaxAmmo = MaxAmmo - RemovedAmmo
+	else
+		RemovedAmmo = MaxAmmo
+		MaxAmmo = 0;
 	end
 end
 
