@@ -5,6 +5,7 @@
 #include "Enemies/Spawner.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
+#include "FGGameState.h"
 
 AGameController::AGameController()
 {
@@ -18,15 +19,18 @@ void AGameController::BeginPlay()
 
 	for (int i = 0; i < SpawnerActors.Num(); i++)
 	{
-		SpawnerList.Add(Cast<ASpawner>(SpawnerActors[i]));
+		SpawnerList.Add(CastChecked<ASpawner>(SpawnerActors[i]));
 	}
 
-	//Try out game state
+	CurrentGameState = CastChecked<AFGGameState>(GameState);
 }
 
 void AGameController::Tick(float DeltaTime)
 {
-	StartWave();
+	if (CurrentGameState->GetState() == States::Running)
+	{
+		StartWave();
+	}
 }
 
 
@@ -56,6 +60,10 @@ void AGameController::EnemyDecrease()
 	if (EnemyCount <= 0)
 	{
 		WaveInProgress = false;
+		if (WaveCurrent >= WaveAmount)
+		{
+			CurrentGameState->EndGame();
+		}
 	}
 }
 
@@ -67,6 +75,7 @@ void AGameController::EnemyTargetReached()
 	if (EnemiesToFail < 0) EnemiesToFail = 0;
 	if (EnemiesToFail <= 0)
 	{
+		CurrentGameState->EndGame();
 		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("Game Lost"));
 
 		//Disable player input.

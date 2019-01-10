@@ -2,3 +2,17 @@
 
 #include "FGGameState.h"
 
+States AFGGameState::GetState()
+{
+	return CurrentState;
+}
+
+void AFGGameState::StartGame()
+{
+	CurrentState = States::Running;
+}
+
+void AFGGameState::EndGame()
+{
+	CurrentState = States::Finished;
+}

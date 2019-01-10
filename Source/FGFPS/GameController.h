@@ -47,9 +47,11 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 		int EnemiesToFail = 5;
 
+
+protected:
 	TArray<class ASpawner*> SpawnerList;
 	bool WaveInProgress = false;
 
-protected:
+	class AFGGameState* CurrentGameState;
 	
 };
