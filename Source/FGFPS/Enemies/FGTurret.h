@@ -6,6 +6,8 @@
 #include "WorldCollision.h"
 #include "FGTurret.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FFGFireDelegate);
+
 UCLASS()
 class FGFPS_API AFGTurret : public AActor, public IFGWeaponInterface
 {
@@ -22,6 +24,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "FG|Turret")
 	void CreateWeapon(class UFGWeaponSchematic* NewWeaponSchematic);
+
+	UPROPERTY(BlueprintAssignable)
+	FFGFireDelegate OnFire;
 
 	void Fire();
 
