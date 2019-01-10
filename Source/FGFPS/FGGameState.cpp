@@ -16,16 +16,15 @@ void AFGGameState::StartGame()
 
 void AFGGameState::EndGame(bool hasWon)
 {
+	CurrentState = States::Finished;
 	APlayerController* const PlayerController = Cast<APlayerController>(GEngine->GetFirstLocalPlayerController(GetWorld()));
 	UUserWidget* Widget;
 	if (hasWon)
 	{
-		CurrentState = States::Won;
 		Widget = CreateWidget<UUserWidget>(PlayerController, VictoryScreen);
 	}
 	else
 	{
-		CurrentState = States::Lost;
 		Widget = CreateWidget<UUserWidget>(PlayerController, DefeatScreen);
 	}
 
@@ -35,12 +34,22 @@ void AFGGameState::EndGame(bool hasWon)
 		Widget->AddToViewport();
 	}
 
+	SetPause();
 	PlayerController->bShowMouseCursor = true;
 }
 
 void AFGGameState::SetPause(bool PauseMode)
 {
-	IsGamePaused = PauseMode;
+	
+	if (CurrentState == States::Finished)	//Pause anyway
+	{
+		IsGamePaused = true;
+	}
+	else
+	{
+		IsGamePaused = PauseMode;
+	}
+
 	UGameplayStatics::SetGamePaused(GetWorld(), IsGamePaused);
 }
 

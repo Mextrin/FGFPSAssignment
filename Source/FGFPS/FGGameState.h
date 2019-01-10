@@ -10,7 +10,7 @@
  * 
  */
 UENUM(BlueprintType)
-	enum class States : uint8 { PreLaunch, Running, Won, Lost };
+	enum class States : uint8 { PreLaunch, Running, Finished };
 
 UCLASS()
 class FGFPS_API AFGGameState : public AGameStateBase
@@ -29,7 +29,7 @@ public:
 		void EndGame(bool hasWon);
 
 	UFUNCTION(BlueprintCallable)
-		void SetPause(bool PauseMode);
+		void SetPause(bool PauseMode = true);
 	UFUNCTION(BlueprintCallable)
 		bool GetPauseState();
 
