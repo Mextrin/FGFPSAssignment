@@ -126,7 +126,7 @@ void AFGTurret::Fire()
 	{
 		return;
 	}
-
+	OnFire.Broadcast();
 	CurrentWeapon->Fire();
 }
 
