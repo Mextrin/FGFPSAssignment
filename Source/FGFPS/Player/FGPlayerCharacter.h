@@ -66,6 +66,8 @@ protected:
 	void InteractPressed();
 
 	void InteractReleased();
+	
+	void PausePressed();
 
 	void FirePressed();
 
@@ -74,4 +76,5 @@ protected:
 	void MoveForward(float Val);
 
 	void MoveRight(float Val);
+
 };

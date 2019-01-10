@@ -10,7 +10,7 @@
  * 
  */
 UENUM(BlueprintType)
-	enum class States : uint8 { PreLaunch, Running, Finished };
+	enum class States : uint8 { PreLaunch, Running, Won, Lost };
 
 UCLASS()
 class FGFPS_API AFGGameState : public AGameStateBase
@@ -26,8 +26,20 @@ public:
 		void StartGame();
 
 	UFUNCTION(BlueprintCallable)
-		void EndGame();
+		void EndGame(bool hasWon);
+
+	UFUNCTION(BlueprintCallable)
+		void SetPause(bool PauseMode);
+	UFUNCTION(BlueprintCallable)
+		bool GetPauseState();
+
+	UPROPERTY(EditDefaultsOnly, Category = "Post Game")
+		TSubclassOf<class UUserWidget> VictoryScreen;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Post Game")
+		TSubclassOf<class UUserWidget> DefeatScreen;
 
 private:
 	States CurrentState = States::PreLaunch;
+	bool IsGamePaused = false;
 };

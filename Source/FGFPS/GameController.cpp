@@ -62,7 +62,7 @@ void AGameController::EnemyDecrease()
 		WaveInProgress = false;
 		if (WaveCurrent >= WaveAmount)
 		{
-			CurrentGameState->EndGame();
+			CurrentGameState->EndGame(true);
 		}
 	}
 }
@@ -75,7 +75,7 @@ void AGameController::EnemyTargetReached()
 	if (EnemiesToFail < 0) EnemiesToFail = 0;
 	if (EnemiesToFail <= 0)
 	{
-		CurrentGameState->EndGame();
+		CurrentGameState->EndGame(false);
 		GEngine->AddOnScreenDebugMessage(-1, 15.f, FColor::Red, TEXT("Game Lost"));
 
 		//Disable player input.

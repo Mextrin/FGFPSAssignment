@@ -11,6 +11,7 @@
 #include "Weapon/FGWeaponSchematic.h"
 #include "Engine/World.h"
 #include "Animation/AnimInstance.h"
+#include "FGGameState.h"
 
 AFGPlayerCharacter::AFGPlayerCharacter(const FObjectInitializer& ObjectInitializer) : 
 	Super(ObjectInitializer)
@@ -72,6 +73,8 @@ void AFGPlayerCharacter::SetupPlayerInputComponent(UInputComponent* InputCompone
 {
 	Super::SetupPlayerInputComponent(InputComponent);
 
+	InputComponent->BindAction("Pause", IE_Pressed, this, &AFGPlayerCharacter::PausePressed).bExecuteWhenPaused = true;
+	
 	InputComponent->BindAction("ADS", IE_Pressed, this, &AFGPlayerCharacter::ADSPressed);
 	InputComponent->BindAction("ADS", IE_Released, this, &AFGPlayerCharacter::ADSReleased);
 
@@ -93,6 +96,7 @@ void AFGPlayerCharacter::SetupPlayerInputComponent(UInputComponent* InputCompone
 
 	InputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	InputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+
 }
 
 void AFGPlayerCharacter::EquipNewWeapon(class UFGWeaponSchematic* NewWeaponSchematic, FName SocketName)
@@ -194,6 +198,12 @@ void AFGPlayerCharacter::InteractPressed()
 void AFGPlayerCharacter::InteractReleased()
 {
 	GetInteractorComponent()->StopInteracting();
+}
+
+void AFGPlayerCharacter::PausePressed()
+{
+	AFGGameState* CurrentGameState = Cast<AFGGameState>(GetWorld()->GetAuthGameMode()->GameState);
+	CurrentGameState->SetPause(!CurrentGameState->GetPauseState());
 }
 
 void AFGPlayerCharacter::FirePressed()

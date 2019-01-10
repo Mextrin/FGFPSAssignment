@@ -35,7 +35,7 @@ public:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 		int WaveAmount = 10;
 
-	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		int WaveCurrent = 0;
 
 	UPROPERTY(EditAnywhere)
