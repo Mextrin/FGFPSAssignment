@@ -31,7 +31,7 @@ function Tick(DeltaSeconds)
 		Damage = 10
 	end
 	--ue4.print(MaxAmmo)
-	ue4.print(CurrentAmmo)
+	--ue4.print(CurrentAmmo)
 end
 
 function BeginPlay()

@@ -50,7 +50,7 @@ void AFGWeapon::Tick(float DeltaSeconds)
 	LuaComponent->CallFunction_OneParamNumber("Tick", DeltaSeconds);
 	InfiniteAmmo = LuaComponent->GetBool("InfiniteAmmo");
 	//Debug print on screen ammount of current ammo
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("AmountRemoved = %d"),AmmoToAdd ));
+	//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("AmountRemoved = %d"),AmmoToAdd ));
 }
 
 void AFGWeapon::Fire()

@@ -44,7 +44,7 @@ void AFGAmmoPickUp::PickUp(UPrimitiveComponent* OverlappedComponent, AActor* Oth
 {
 	if (OtherActor->IsA(AFGPlayerCharacter::StaticClass()))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("You pickup")));
+		//GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("You pickup")));
 		Cast<AFGPlayerCharacter>(OtherActor)->AddAmmo();
 		DisablePickUp();
 	}

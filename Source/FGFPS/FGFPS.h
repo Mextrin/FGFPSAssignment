@@ -3,3 +3,5 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Runtime/UMG/Public/Blueprint/UserWidget.h"
+
