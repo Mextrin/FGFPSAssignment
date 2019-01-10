@@ -29,6 +29,8 @@ AFGPlayerCharacter::AFGPlayerCharacter(const FObjectInitializer& ObjectInitializ
 	Mesh1P->RelativeLocation = FVector(-0.5f, -4.4f, -155.7f);
 
 	InteractorComponent = ObjectInitializer.CreateDefaultSubobject<UFGPlayerInteractorComponent>(this, TEXT("Interactor"));
+
+	
 }
 
 void AFGPlayerCharacter::BeginPlay()
