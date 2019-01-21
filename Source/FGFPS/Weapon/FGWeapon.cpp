@@ -91,7 +91,6 @@ void AFGWeapon::Fire()
 				DamageEvent.ShotDirection = ForwardDirection;
 
 				Hit.Actor->TakeDamage(Damage, DamageEvent, (Instigator ? Instigator->GetController() : nullptr), this);
-			
 			}
 		}
 

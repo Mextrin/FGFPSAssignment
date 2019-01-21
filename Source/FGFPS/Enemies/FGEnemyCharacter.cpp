@@ -95,7 +95,7 @@ void AFGEnemyCharacter::Die()
 	TimerManager.SetTimer(RagdollTimerHandle, this, &AFGEnemyCharacter::DoRagdoll, TimeUntilRagdoll, false);
 
 	//Notify GameController
-	AGameController* CurrentGameController = Cast<AGameController>(GetWorld()->GetAuthGameMode());
+	AGameController* CurrentGameController = CastChecked<AGameController>(GetWorld()->GetAuthGameMode());
 	CurrentGameController->EnemyDecrease();
 
 	//Destroy body after 5 seconds

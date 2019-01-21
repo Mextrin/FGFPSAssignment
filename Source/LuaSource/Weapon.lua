@@ -1,5 +1,5 @@
 Spread = 6
-Damage = 10
+Damage = 40
 
 MaxAmmo = 128
 ReloadAmount = 32
@@ -28,7 +28,7 @@ function Tick(DeltaSeconds)
 		Spread = 6
 	end
 	if DamageBoostTimer <= 0 then
-		Damage = 10
+		Damage = 100
 	end
 	--ue4.print(MaxAmmo)
 	--ue4.print(CurrentAmmo)

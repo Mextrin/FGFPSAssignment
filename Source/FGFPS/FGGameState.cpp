@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "FGGameState.h"
-#include "../../../../Program Files/Epic Games/UE_4.21/Engine/Source/Runtime/Engine/Classes/Kismet/GameplayStatics.h"
-#include "../../../../Program Files/Epic Games/UE_4.21/Engine/Source/Runtime/UMG/Public/Blueprint/UserWidget.h"
+#include "Runtime/UMG/Public/Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
 
 States AFGGameState::GetState()
 {
@@ -40,7 +40,7 @@ void AFGGameState::EndGame(bool hasWon)
 
 void AFGGameState::SetPause(bool PauseMode)
 {
-	
+
 	if (CurrentState == States::Finished)	//Pause anyway
 	{
 		IsGamePaused = true;
